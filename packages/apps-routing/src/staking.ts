@@ -13,6 +13,10 @@ import { assert, BN_ONE } from '@polkadot/util';
 const TEST_ADDR = '1ufRSF5gx9Q8hrYoj7KwpzQzDNqLJdbKrFwC6okxa5gtBRd';
 
 function needsApiCheck (api: ApiPromise): boolean {
+  if (api.isConnected) {
+    return true;
+  }
+
   try {
     // we need a known Exposure type
     const { others: [{ value, who }], own, total } = api.registry.createType<PalletStakingExposure>(
